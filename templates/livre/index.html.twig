@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Livres List{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">List of Livres</h1>
+
+    <a href="{{ path('app_livre_new') }}" class="btn btn-success mb-4">Add New Livre</a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Pages</th>
+                <th>Price</th>
+                <th>Auteurs</th>
+                <th>Editeur</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for livre in livres %}
+                <tr>
+                    <td>{{ livre.id }}</td>
+                    <td>{{ livre.titre }}</td>
+                    <td>{{ livre.nbrpage }}</td>
+                    <td>{{ livre.prix }}</td>
+                    <td>
+                        {% for auteur in livre.auteurs %}
+                            {{ auteur.nom }} {{ auteur.prenom }}<br>
+                        {% endfor %}
+                    </td>
+                    <td>{{ livre.editeur.nom }}</td>
+                    <td class="table-actions">
+                        <a href="{{ path('app_livre_show', {'id': livre.id}) }}" class="btn btn-info">View</a>
+                        <a href="{{ path('app_livre_edit', {'id': livre.id}) }}" class="btn btn-warning">Edit</a>
+                        <form method="post" action="{{ path('app_livre_delete', {'id': livre.id}) }}" onsubmit="return confirm('Are you sure?');" style="display:inline;">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ livre.id) }}">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">No records found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

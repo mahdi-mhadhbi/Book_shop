@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Auteur{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="mb-4">Create New Auteur</h1>
+
+        <div class="card">
+            <div class="card-body">
+                {{ form_start(form) }}
+                
+                <div class="form-group mb-3">
+                    {{ form_label(form.nom, 'Name') }}
+                    {{ form_widget(form.nom, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(form.nom) }}
+                </div>
+
+                <div class="form-group mb-3">
+                    {{ form_label(form.prenom, 'First Name') }}
+                    {{ form_widget(form.prenom, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(form.prenom) }}
+                </div>
+
+                <div class="form-group mb-3">
+                    {{ form_label(form.livres, 'Select Books') }}
+                    {{ form_widget(form.livres, { 'attr': {'class': 'form-control select-multiple', 'multiple': 'multiple'} }) }}
+                    {{ form_errors(form.livres) }}
+                </div>
+
+                <button type="submit" class="btn btn-success">Save</button>
+                
+                {{ form_end(form) }}
+            </div>
+        </div>
+
+        <a href="{{ path('app_auteur_index') }}" class="btn btn-secondary mt-3">Back to List</a>
+        <br>
+        <br>
+        <br>
+    </div>
+{% endblock %}

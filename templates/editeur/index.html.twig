@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editeur List{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">List of Editeurs</h1>
+
+    <a href="{{ path('app_editeur_new') }}" class="btn btn-success mb-3">Create New Editeur</a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Books</th> <!-- New column for displaying Livres -->
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for editeur in editeurs %}
+                <tr>
+                    <td>{{ editeur.id }}</td>
+                    <td>{{ editeur.nom }}</td>
+                    <td>
+                        {% if editeur.livres is not empty %}
+                            <ul>
+                                {% for livre in editeur.livres %}
+                                    <li>{{ livre.titre }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <span>No books available</span>
+                        {% endif %}
+                    </td>
+                    <td class="table-actions">
+                        <a href="{{ path('app_editeur_show', {'id': editeur.id}) }}" class="btn btn-info">View</a>
+                        <a href="{{ path('app_editeur_edit', {'id': editeur.id}) }}" class="btn btn-warning">Edit</a>
+                        <form method="post" action="{{ path('app_editeur_delete', {'id': editeur.id}) }}" onsubmit="return confirm('Are you sure?');" style="display:inline;">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ editeur.id) }}">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">No records found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

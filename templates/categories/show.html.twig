@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category Details{% endblock %}
+
+{% block body %}
+    <h1>Category Details</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ category.id }}</td>
+        </tr>
+        <tr>
+            <th>Designation</th>
+            <td>{{ category.designation }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ category.description }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>List of Editors:</h2>
+    <ul>
+        {% set editors = [] %}
+        {% for livre in category.livres %}
+            {% if livre.editeur and livre.editeur not in editors %}
+                {% set editors = editors|merge([livre.editeur]) %}
+            {% endif %}
+        {% endfor %}
+
+        {% for editeur in editors %}
+            <li>{{ editeur.nom }}</li>
+        {% else %}
+            <li>No editors available for this category.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ path('app_categories_index') }}" class="btn btn-primary">Back to List</a>
+    <a href="{{ path('app_categories_edit', {'id': category.id}) }}" class="btn btn-secondary">Edit</a>
+
+    {{ include('categories/_delete_form.html.twig') }}
+{% endblock %}

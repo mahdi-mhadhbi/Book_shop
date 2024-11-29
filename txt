@@ -1,0 +1,6 @@
+#[Route('/ouvrier')]
+#[Route('/new', name: 'app_ouvrier_new', methods: ['GET', 'POST'])]
+#[Route('/{id}', name: 'app_ouvrier_show', methods: ['GET'])]
+#[Route('/somme/{a}/{b}')]
+#[Route('/{id}/edit', name: 'app_ouvrier_edit', methods: ['GET', 'POST'])]
+#[Route('/{id}', name: 'app_ouvrier_delete', methods: ['POST'])]

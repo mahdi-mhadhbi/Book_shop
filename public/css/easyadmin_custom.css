@@ -1,0 +1,28 @@
+
+.ea-sidebar {
+    background-color: #3498db !important; /* Replace with your desired color */
+}
+/*#main-menu {
+    background-color: #3498db !important;
+} */
+#main-menu .menu .menu-header {
+    color: #ffffff !important;
+}
+
+
+#main-menu .menu .menu-item a {
+    color: #000000 !important;
+}
+
+/* Active menu item background and text color */
+#main-menu .menu .menu-item.active {
+    background-color: #ff8efe !important; /* Replace with your preferred active item color */
+}
+#main-menu .menu .menu-item.active .menu-item-label {
+    color: #ffffff !important; /* Text color for active item */
+}
+
+/* Submenu item color */
+#main-menu .menu .submenu a {
+    color: #b3c7e5 !important; /* Adjust the submenu item color */
+}
