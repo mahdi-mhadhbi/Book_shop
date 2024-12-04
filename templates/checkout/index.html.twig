@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<main>
+    <!-- Checkout Page Content -->
+    <section class="checkout_area section-padding">
+        <div class="container">
+            <div class="billing_details">
+                <form action="{{ path('checkout_process') }}" method="POST">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <h3>Billing Details</h3>
+                            <div class="row">
+                                <!-- Add your billing fields here -->
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="order_box">
+                                <h2>Your Order</h2>
+                                <ul class="list">
+                                    <li>
+                                        <a href="#">Product <span>Total</span></a>
+                                    </li>
+                                    {% for item in cart.items %}
+                                    <li>
+                                        <a href="#">{{ item.product.titre }} <span class="middle">x {{ item.quantity }}</span> <span class="last">${{ item.product.prix * item.quantity }}</span></a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                <ul class="list list_2">
+                                    <li>
+                                        <a href="#">Subtotal <span>${{ cartTotal }}</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Shipping <span>Free</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Total <span>${{ cartTotal }}</span></a>
+                                    </li>
+                                </ul>
+                                <div class="payment_item">
+                                    <h4>Payment Method</h4>
+                                    <!-- Payment Method options here -->
+                                </div>
+                                <div class="checkout_btn">
+                                    <button class="btn w-100" type="submit" formaction="{{ path('checkout_process') }}">Place Order</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

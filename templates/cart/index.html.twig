@@ -1,141 +1,150 @@
 {% extends 'base.html.twig' %}
 
-
 {% block body %}
 <main>
-    <!-- Hero area Start-->
-    <div class="container">
+    <!-- Hero Section -->
+    <div class="container mt-5">
         <div class="row">
-            <div class="col-xl-12">
+            <div class="col-12 text-center">
                 <div class="slider-area">
                     <div class="slider-height2 slider-bg5 d-flex align-items-center justify-content-center">
                         <div class="hero-caption hero-caption2">
-                            <h2>Cart</h2>
+                            <h2 class="text-white">Your Cart</h2>
                         </div>
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
-    <!--  Hero area End -->
-    <!--================Cart Area =================-->
-    <section class="cart_area section-padding">
+
+    <!-- Cart Area -->
+    <section class="cart_area section-padding py-5">
         <div class="container">
             <div class="cart_inner">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">Product</th>
                                 <th scope="col">Price</th>
                                 <th scope="col">Quantity</th>
                                 <th scope="col">Total</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            
+                            {% for item in cart %}
                             <tr>
                                 <td>
                                     <div class="media">
-                                        <div class="d-flex">
-                                            <img src="assets/img/gallery/best_selling1.jpg" alt="" />
-                                        </div>
-                                        <div class="media-body">
-                                            <p>Minimalistic shop for multipurpose use</p>
+                                        <img src="{{ asset('uploads/livres/' ~ item.product.image) }}" class="img-fluid rounded" alt="{{ item.product.titre }}" style="width: 100px;">
+                                        <div class="media-body ms-3">
+                                            <p class="fw-bold">{{ item.product.titre }}</p>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <h5>$360.00</h5>
+                                    <h5 class="fw-bold">${{ item.product.prix }}</h5>
                                 </td>
                                 <td>
-                                    <div class="product_count">
-                                        <span class="input-number-decrement"> <i class="ti-minus"></i></span>
-                                        <input class="input-number2" type="text" value="1" min="0" max="10">
-                                        <span class="input-number-increment"> <i class="ti-plus"></i></span>
+                                    <div class="input-group">
+                                       <button class="btn btn-outline-secondary decrease-quantity" type="button" data-product-id="{{ item.product.id }}"><i class="ti-minus"></i></button>
+                                        <input class="form-control text-center" type="number" value="{{ item.quantity }}" min="1" max="10" id="quantity-{{ item.product.id }}">
+                                        <button class="btn btn-outline-secondary increase-quantity" type="button" data-product-id="{{ item.product.id }}"><i class="ti-plus"></i></button>
                                     </div>
                                 </td>
                                 <td>
-                                    <h5>$720.00</h5>
+                                    <h5>${{ item.product.prix * item.quantity }}</h5>
+                                </td>
+                                <td>
+                                    <a href="{{ path('cart_remove', {'id': item.id}) }}" class="btn btn-danger btn-sm" type="button">Remove</a>
                                 </td>
                             </tr>
-                            <tr class="bottom_button">
-                                <td>
-                                    <a class="btn" href="#">Update Cart</a>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <div class="cupon_text float-right">
-                                        <a class="btn" href="#">Close Coupon</a>
-                                    </div>
-                                </td>
-                            </tr>
+                            {% else %}
                             <tr>
-                                <td></td>
-                                <td></td>
+                                <td colspan="5" class="text-center">Your cart is empty!</td>
+                            </tr>
+                            {% endfor %}
+                            
+                            <!-- Cart Summary -->
+                            <tr class="bottom_button">
+                                <td colspan="3">
+                                    <a class="btn btn-primary" href="/categories">Continue Shopping</a>
+                                </td>
                                 <td>
                                     <h5>Subtotal</h5>
                                 </td>
                                 <td>
-                                    <h5>$2160.00</h5>
-                                </td>
-                            </tr>
-                            <tr class="shipping_area">
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <h5>Shipping</h5>
-                                </td>
-                                <td>
-                                    <div class="shipping_box">
-                                        <ul class="list">
-                                            <li>
-                                                Flat Rate: $5.00
-                                                <input type="radio" aria-label="Radio button for following text input">
-                                            </li>
-                                            <li>
-                                                Free Shipping
-                                                <input type="radio" aria-label="Radio button for following text input">
-                                            </li>
-                                            <li>
-                                                Flat Rate: $10.00
-                                                <input type="radio" aria-label="Radio button for following text input">
-                                            </li>
-                                            <li class="active">
-                                                Local Delivery: $2.00
-                                                <input type="radio" aria-label="Radio button for following text input">
-                                            </li>
-                                        </ul>
-                                        <h6>
-                                            Calculate Shipping
-                                            <i class="fa fa-caret-down" aria-hidden="true"></i>
-                                        </h6>
-                                        <select class="shipping_select">
-                                            <option value="1">Bangladesh</option>
-                                            <option value="2">India</option>
-                                            <option value="4">Pakistan</option>
-                                        </select>
-                                        <select class="shipping_select section_bg">
-                                            <option value="1">Select a State</option>
-                                            <option value="2">Select a State</option>
-                                            <option value="4">Select a State</option>
-                                        </select>
-                                        <input class="post_code" type="text" placeholder="Postcode/Zipcode" />
-                                        <a class="btn" href="/cart">Update Details</a>
-                                    </div>
+                                    <h5>${{ cartTotal }}</h5>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <div class="checkout_btn_inner float-right">
-                        <a class="btn" href="/categories">Continue Shopping</a>
-                        <a class="btn checkout_btn" href="/checkout">Proceed to checkout</a>
+                    <div class="checkout_btn_inner float-end">
+                        <a class="btn btn-success checkout_btn" href="/checkout">Proceed to Checkout</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!--================End Cart Area =================-->
 </main>
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Decrease quantity button
+            document.querySelectorAll('.decrease-quantity').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-product-id');
+                    const input = document.getElementById('quantity-' + productId);
+                    let quantity = parseInt(input.value);
+                    
+                    if (quantity > 1) {
+                        input.value = quantity - 1;
+                        updateCartItem(productId, input.value);
+                    }
+                });
+            });
+
+            // Increase quantity button
+            document.querySelectorAll('.increase-quantity').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-product-id');
+                    const input = document.getElementById('quantity-' + productId);
+                    let quantity = parseInt(input.value);
+                    
+                    if (quantity < 10) {
+                        input.value = quantity + 1;
+                        updateCartItem(productId, input.value);
+                    }
+                });
+            });
+        });
+
+        // Update cart item via AJAX
+        function updateCartItem(productId, quantity) {
+            fetch(`/cart/update/${productId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({ quantity: quantity })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update UI if necessary
+                    console.log('Cart updated');
+                } else {
+                    console.error('Failed to update cart');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+{% endblock %}
+
 {% endblock %}

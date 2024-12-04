@@ -6,6 +6,7 @@ use App\Entity\Categories;
 use App\Entity\Livre;
 use App\Entity\Editeur;
 use App\Entity\Auteur;
+use App\Entity\Commande;
 
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -57,6 +58,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Categorie', 'fas fa-list', Categories::class);
         yield MenuItem::linkToCrud('Auteur ', ' fa-solid fa-pen', Editeur::class);
         yield MenuItem::linkToCrud('Editeur', 'fa-solid fa-user-pen', Auteur::class);
+        yield MenuItem::linkToCrud('Commande', 'fa-solid fa-cart-shopping', Commande::class);
         yield MenuItem::linkToCrud('Utilisateur', 'fa-solid fa-user-pen', User::class);
     }
 

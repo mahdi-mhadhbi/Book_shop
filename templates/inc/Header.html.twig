@@ -9,10 +9,10 @@
                             <div class="header-info-left d-flex align-items-center">
                                 <!-- logo -->
                                 <div class="logo">
-                                    <a href="index-2.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                                    <a href="/"><img src="assets/img/logo/logo.png" alt=""></a>
                                 </div>
                                 <!-- Search Box -->
-                                <form action="search.html" class="form-box">
+                                <form action="/" class="form-box">
                                     <input type="text" name="Search" placeholder="Search book by author or publisher">
                                     <div class="search-icon">
                                         <i class="ti-search"></i>
@@ -22,12 +22,28 @@
                             </div>
                             <div class="header-info-right d-flex align-items-center">
                                 <ul>                                   
-                                    <li><a href="#">FAQ</a></li>
-                                    <li><a href="#">Track Order</a></li>
+                                    
                                     <li class="shopping-card">
-                                        <a href="/cart"><img src="assets/img/icon/cart.svg" alt=""></a>
+                                        <a href="/cart"><img src="{{ asset('assets/img/icon/cart.svg')}}" alt=""></a>
                                     </li>
-                                    <li><a href="/login" class="btn header-btn">Sign in</a></li>
+                                    {% if app.user %}
+    <li class="user-icon">
+        <a href="/profile">
+    <img src="{{ asset('assets/img/icon/logo.png')}}" alt="" style="width: 40px; height: 40px;"> <!-- Adjust size here -->
+</a>
+
+    </li>
+    <li class="user-icon">
+        <a href="/logout">
+    <img src="{{ asset('assets/img/icon/logout.png')}}" alt="" style="width: 40px; height: 40px;"> <!-- Adjust size here -->
+</a>
+
+    </li>
+{% else %}
+    <li><a href="/login" class="btn header-btn">Sign in</a></li>
+{% endif %}
+
+
                                 </ul>
                             </div>
                         </div>
@@ -41,13 +57,13 @@
                 <div class="col-xl-12">
                     <!-- logo 2 -->
                     <div class="logo2">
-                        <a href="/home"><img src="assets/img/logo/logo.png" alt=""></a>
+                        <a href="/"><img src="assets/img/logo/logo.png" alt=""></a>
                     </div>
                     <!-- Main-menu -->
                     <div class="main-menu text-center d-none d-lg-block">
                         <nav>                                                
                             <ul id="navigation">    
-                                <li><a href="/home">Home</a></li>
+                                <li><a href="/">Home</a></li>
                                 <li><a href="/categories">Categories</a></li>
                                 <li><a href="/about">About</a></li>
                                 

@@ -3,3 +3,16 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+# config/routes.yaml
+admin:
+    path: /admin
+    controller: App\Controller\Admin\DashboardController::index
+
+app_home:
+    path: /
+    controller: App\Controller\HomeController::index
+
+email_send_test:
+    path: /send-test-email
+    controller: App\Controller\EmailController::sendTestEmail
+
